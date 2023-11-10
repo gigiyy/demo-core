@@ -1,6 +1,7 @@
 package com.example.core.ebl;
 
 import com.example.core.model.Qualifiers;
+import io.micrometer.observation.annotation.Observed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -20,6 +21,7 @@ public class EblDocumentService {
 		return repository.findAll().filter(qualifiers.match());
 	}
 
+	@Observed(name="ebl", contextualName = "save-ebl")
 	public Mono<ElectronicBillOfLading> save(ElectronicBillOfLading ebl) {
 		return repository.save(ebl);
 	}
